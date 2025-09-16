@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi Calculator</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>π Calculation</h1>
+        <p class="subtitle">Computed with precision 
+          <strong>
+            {{ if .precision }}{{ .precision }}{{ else }}...{{ end }}
+          </strong>
+        </p> </header> <section class="result">
+        <p><strong>π ≈</strong> 
+          {{ if .pi }}{{ .pi }}{{ else }}...{{end}}
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
