@@ -39,6 +39,7 @@ func (p *RoundRobin) SelectServer() string {
 	p.idx = (p.idx + 1) % len(p.servers)
 	return s
 }
+
 func (p *RoundRobin) Update(server string) {}
 
 // LeastConnections
