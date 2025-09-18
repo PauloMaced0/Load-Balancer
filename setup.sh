@@ -1,14 +1,27 @@
 #!/usr/bin/env bash
 
-N_SERVERS=${1:-4} 
-POLICY=${2:-N2One}
+N_SERVERS=4
+POLICY="N2One"
+
+while getopts "n:p:" opt; do
+  case ${opt} in
+    n) N_SERVERS=$OPTARG ;;  # number of servers
+    p) POLICY=$OPTARG ;;     # scheduling policy
+    *) 
+      echo "Usage: $0 [-n number_of_servers] [-p policy]"
+      exit 1
+      ;;
+  esac
+done
 
 # delete old pid file
 rm -f http_server.pid
 
+cd src ... || exit
+
 mkdir -p build
-go build -o build/server ./src/cmd/server
-go build -o build/load_balancer ./src/cmd/load_balancer
+go build -o build/server ./cmd/server
+go build -o build/load_balancer ./cmd/load_balancer
 
 echo -e Start "$N_SERVERS" Http Servers
 
