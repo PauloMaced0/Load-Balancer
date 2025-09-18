@@ -1,10 +1,22 @@
 #!/usr/bin/env bash
 
-N=${1:-100}
-C=${2:-5}
-MIN=${3:-100}
+N=100   # total requests
+C=5     # number of concurrent clients
+MIN=100 # start precision
 
-K=$(("$N" / "$C"))
+while getopts "n:c:m:" opt; do
+  case ${opt} in
+    n) N=$OPTARG ;;   # total requests
+    c) C=$OPTARG ;;   # number of clients
+    m) MIN=$OPTARG ;; # min precision
+    *)
+       echo "Usage: $0 [-n total_requests] [-c concurrent_clients] [-m min_precision]"
+       exit 1
+       ;;
+  esac
+done
+
+K=$((N / C))
 
 echo -e "Stress test Load Balancer "
 
@@ -13,7 +25,7 @@ PID_LIST=""
 START=$(date +%s)
 for _ in $(seq "$C")
 do
-  MAX=$(("$MIN" + "$K"))
+  MAX=$((MIN + K))
   curl -s "http://localhost:8080/[$MIN-$MAX]" > /dev/null 2>&1 & 
   PID=$!
   PID_LIST="$PID_LIST $PID"
