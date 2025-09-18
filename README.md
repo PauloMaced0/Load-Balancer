@@ -90,7 +90,7 @@ go build -o build/load_balancer ./cmd/load_balancer
 ### 2. Start Servers & Load Balancer
 
 ```bash
-./setup.sh -n 4 -p RoundRobin 
+./setup.sh -n 5 -p RoundRobin 
 ```
 
 - Starts 5 servers (`localhost:8000,8001,8002,8003,8004`).
@@ -106,7 +106,7 @@ curl http://localhost:8080/500
 ### 4. Run Stress Test
 
 ```bash
-./scripts/stress.sh -n 200 -c 10 -m 100
+./stress.sh -n 200 -c 10 -m 100
 ```
 
 > [!NOTE]
